@@ -1,0 +1,23 @@
+
+services:
+  backend:
+    build: ./flask-backend
+    volumes:
+      - ./flask-backend:/app
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
+
+  frontend:
+    build: ./next-frontend
+    working_dir: /app
+    volumes:
+      - ./next-frontend:/app
+      - /app/node_modules   
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
